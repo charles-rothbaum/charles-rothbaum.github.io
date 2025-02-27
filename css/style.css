@@ -2,13 +2,13 @@
 
 /* Define color variables and base fonts */
 :root {
-    --primary-color: #3498db;
-    --secondary-color: #2c3e50;
-    --accent-color: #e74c3c;
-    --bg-color: #ecf0f1;
+    --primary-color: hwb(204 55% 5%);
+    --secondary-color: #ee9c31;
+    --accent-color: #9d640e;
+    --bg-color: #52556c;
     --text-color: #333;
-    --header-bg: #2c3e50;
-    --footer-bg: #2c3e50;
+    --header-bg: #00220c;
+    --footer-bg: #002f17;
     --transition-speed: 0.3s;
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   }
