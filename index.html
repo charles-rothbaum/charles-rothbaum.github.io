@@ -1,212 +1,46 @@
 <!DOCTYPE html>
-
+<html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Butterchurn Demo</title>
-    <meta name="description" content="Butterchurn Demo Example">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- <script type="text/javascript" src="../dist/butterchurn.js"></script> -->
-    <script type="text/javascript" src="https://unpkg.com/lodash"></script>
-    <script type="text/javascript" src="https://unpkg.com/butterchurn"></script>
-    <script type="text/javascript" src="https://unpkg.com/butterchurn-presets"></script>
-    <script type="text/javascript"
-        src="https://unpkg.com/butterchurn-presets/lib/butterchurnPresetsExtra.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.1.1.min.js"
-        integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
-
-    <style>
-        #canvas:-moz-full-screen {
-            width: 100%;
-            height: 100%;
-        }
-
-        #canvas:-webkit-full-screen {
-            width: 100%;
-            height: 100%;
-        }
-
-        #canvas:-ms-fullscreen {
-            width: 100%;
-            height: 100%;
-        }
-
-        #canvas:fullscreen {
-            width: 100%;
-            height: 100%;
-        }
-
-        #presetSelect {
-            max-width: 1280px;
-        }
-
-        #presetCycleLength {
-            width: 50px;
-        }
-    </style>
-    <link rel="stylesheet" href="https://unpkg.com/normalize.css/normalize.css" />
-
-    <script>
-        $(function () {
-            var visualizer = null;
-            var rendering = false;
-            var audioContext = null;
-            var sourceNode = null;
-            var delayedAudible = null;
-            var cycleInterval = null;
-            var presets = {};
-            var presetKeys = [];
-            var presetIndexHist = [];
-            var presetIndex = 0;
-            var presetCycle = true;
-            var presetCycleLength = 15000;
-            var presetRandom = true;
-            var canvas = document.getElementById('canvas');
-            var file = null;
-            var file_src = null;
-
-            function connectToAudioAnalyzer(sourceNode) {
-                if (delayedAudible) {
-                    delayedAudible.disconnect();
-                }
-
-                delayedAudible = audioContext.createDelay();
-                delayedAudible.delayTime.value = 0.26;
-
-                sourceNode.connect(delayedAudible)
-                delayedAudible.connect(audioContext.destination);
-
-                visualizer.connectAudio(delayedAudible);
-            }
-
-            function startRenderer() {
-                requestAnimationFrame(() => startRenderer());
-                visualizer.render();
-            }
-
-            function playBufferSource(buffer) {
-                if (!rendering) {
-                    rendering = true;
-                    startRenderer();
-                }
-
-                if (sourceNode) {
-                    sourceNode.disconnect();
-                }
-
-                sourceNode = audioContext.createBufferSource();
-                sourceNode.buffer = buffer;
-                connectToAudioAnalyzer(sourceNode);
-
-                sourceNode.start(0);
-            }
-
-            function loadLocalFiles(files, index = 0) {
-                audioContext.resume();
-
-                var reader = new FileReader();
-                reader.onload = (event) => {
-                    audioContext.decodeAudioData(
-                        event.target.result,
-                        (buf) => {
-                            playBufferSource(buf);
-
-                            setTimeout(() => {
-                                if (files.length > index + 1) {
-                                    loadLocalFiles(files, index + 1);
-                                } else {
-                                    sourceNode.disconnect();
-                                    sourceNode = null;
-                                    $("#audioSelectWrapper").css('display', 'block');
-                                }
-                            }, buf.duration * 1000);
-                        }
-                    );
-                };
-
-
-                var file = files[index];
-                reader.readAsArrayBuffer(file);
-            }
-
-            function connectMicAudio(sourceNode, audioContext) {
-                audioContext.resume();
-
-                var gainNode = audioContext.createGain();
-                gainNode.gain.value = 1.25;
-                sourceNode.connect(gainNode);
-
-                visualizer.connectAudio(gainNode);
-                startRenderer();
-            }
-
-            $("#loadPresetBut").click(function () {
-                var fileSelector = $('<input type="file" accept=".json">');
-
-                fileSelector[0].onchange = function (event) {
-                    file = event.target.files[0];
-
-                    if (!file) return;
-
-                    var reader = new FileReader();
-
-                    reader.onload = function (event) {
-                        try {
-                            file_src = event.target.result;
-                            var preset = JSON.parse(file_src);
-                            visualizer.loadPreset(preset, 5.7);
-                        } catch (err) {
-                            console.error("Error parsing preset file:", err);
-                        }
-                    };
-
-                    reader.readAsText(file);
-                };
-
-                fileSelector.click();
-            });
-
-            $("#micSelect").click(() => {
-                // $("#audioSelectWrapper").css('display', 'none');
-
-                navigator.getUserMedia({ audio: true }, (stream) => {
-                    var micSourceNode = audioContext.createMediaStreamSource(stream);
-                    connectMicAudio(micSourceNode, audioContext);
-                }, (err) => {
-                    console.log('Error getting audio stream from getUserMedia');
-                });
-            });
-
-            function initPlayer() {
-                audioContext = new AudioContext();
-
-                visualizer = butterchurn.default.createVisualizer(audioContext, canvas, {
-                    width: 1280,
-                    height: 720,
-                    pixelRatio: window.devicePixelRatio || 1,
-                    textureRatio: 1.2,
-                });
-            }
-
-            initPlayer();
-        });
-    </script>
+  <meta charset="UTF-8">
+  <title>My Awesome Site</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Link to your main stylesheet if any -->
+  <link rel="stylesheet" href="css/style.css">
 </head>
-
 <body>
-    <div id="mainWrapper">
-        <div id="audioSelectWrapper">
-        </div>
-        <canvas id='canvas' width='1280' height='720'>
-        </canvas>
-        <div id="micSelect">
-            <span>Use Mic</span>
-        </div>
-        <div id="loadPresetBut">
-            <span>load local preset</span>
-        </div>
-    </div>
-</body>
+  <header>
+    <h1>My Awesome Site</h1>
+    <nav>
+      <!-- Navigation links -->
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#visualizer">Visualizer</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+  </header>
 
+  <main>
+    <section id="home">
+      <p>Welcome to my site!</p>
+    </section>
+
+    <!-- Embed the visualizer via an iframe -->
+    <section id="visualizer">
+      <h2>Visualizer</h2>
+      <iframe src="visualizer.html" width="1280" height="720" style="border: none;">
+        Your browser does not support iframes.
+      </iframe>
+    </section>
+
+    <section id="about">
+      <h2>About</h2>
+      <p>This site features a Butterchurn visualizer demo embedded in a high-level layout.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My Awesome Site</p>
+  </footer>
+</body>
 </html>
