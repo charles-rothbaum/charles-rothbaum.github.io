@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Widget Experiments</title>
+  <title>Experiment Library</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Link to our CSS file -->
   <link rel="stylesheet" href="css/style.css">
@@ -41,9 +41,8 @@
 </head>
 <body>
   <header>
-    <h1>My Widget Experiments</h1>
+    <h1>Demos</h1>
   </header>
-
   <main>
     <div class="cells">
       <!-- Cell 1 -->
@@ -62,12 +61,82 @@
         </div>
       </div>
 
+      <div id="cell3" class="cell" onclick="activateCell('cell3')">
+        <h2>Experiment 3</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell4" class="cell" onclick="activateCell('cell4')">
+        <h2>Experiment 4</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell5" class="cell" onclick="activateCell('cell5')">
+        <h2>Experiment 5</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell6" class="cell" onclick="activateCell('cell6')">
+        <h2>Experiment 6</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell7" class="cell" onclick="activateCell('cell7')">
+        <h2>Experiment 7</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell8" class="cell" onclick="activateCell('cell8')">
+        <h2>Experiment 8</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell9" class="cell" onclick="activateCell('cell9')">
+        <h2>Experiment 9</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell10" class="cell" onclick="activateCell('cell10')">
+        <h2>Experiment 10</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell11" class="cell" onclick="activateCell('cell11')">
+        <h2>Experiment 11</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
+      <div id="cell12" class="cell" onclick="activateCell('cell12')">
+        <h2>Experiment 12</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
+
       <!-- More cells can be added here -->
     </div>
   </main>
 
   <footer>
-    <p>&copy; 2025 My Widget Experiments</p>
+    <p>Charles Rothbaum</p>
   </footer>
 
   <!-- Example widget scripts -->
@@ -75,10 +144,9 @@
     // Widget for cell1
     function cell1_init() {
       const container = document.querySelector('#cell1 .widget-container');
-      container.innerHTML = '<p>Experiment 1 is running!</p>';
+      container.innerHTML = '<iframe src="visualizer.html" width="640" height="400" style="border: none;">Your browser does not support iframes.</iframe>';
       // For example, start an animation loop and store its ID so it can be stopped later.
       window.cell1Animation = setInterval(() => {
-        console.log('Widget 1 animation tick');
       }, 1000);
     }
     function cell1_cleanup() {

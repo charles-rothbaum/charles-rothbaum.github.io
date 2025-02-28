@@ -2,13 +2,13 @@
 
 /* Define color variables */
 :root {
-  --primary-color: #3498db;
-  --secondary-color: #2c3e50;
-  --accent-color: #e74c3c;
-  --bg-color: #ecf0f1;
+  --primary-color: #0000;
+  --secondary-color: #32314b;
+  --accent-color: #fbff00;
+  --bg-color: #feab83;
   --cell-bg: #fff;
   --active-border: 3px solid var(--accent-color);
-  --cell-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --cell-shadow: 0 12px 41px rgba(0, 0, 0, 0.1);
   --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
@@ -16,20 +16,30 @@
 * {
   box-sizing: border-box;
 }
-body {
+html,body {
+  min-height: 100vh;
   margin: 0;
+  padding: 0;
   font-family: var(--font-family);
-  background-color: var(--bg-color);
-  color: var(--secondary-color);
+  background: linear-gradient(to bottom, #141027, #2c0740);
+  color: #f4eaea;
+}
+
+canvas {
+  width: 640px !important;
+  height: 300px !important;
+  border-radius: 8px;
 }
 
 /* Header styling */
 header {
   background: var(--secondary-color);
-  color: #fff;
+  color: #eaeaea;
   padding: 1rem;
   text-align: center;
+  padding: 12px;
 }
+
 
 /* Main content layout */
 main {
@@ -38,31 +48,46 @@ main {
   margin: 0 auto;
 }
 
-/* Cells grid */
+
+.cell:nth-child(-n+3) {
+  background-color: #554f7f;
+}
+.cell:nth-child(n+4):nth-child(-n+6) {
+  background-color: #484079;
+}
+.cell:nth-child(n+7):nth-child(-n+9) {
+  background-color: #503767;
+}
+.cell:nth-child(n+10):nth-child(-n+12) {
+  background-color: #312a57;;
+}
+
+/* Grid container for cells */
 .cells {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-template-columns: repeat(3, 1fr);
   grid-gap: 1.5rem;
+  margin: 2rem;
 }
 
-/* Individual cell styling */
+/* Base styles for each cell */
 .cell {
-  background: var(--cell-bg);
-  border: 1px solid #ddd;
+  background-color: #fff;
   border-radius: 8px;
   padding: 1rem;
-  box-shadow: var(--cell-shadow);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
-  transition: transform 0.3s ease, border 0.3s ease;
+  transition: 0.3s ease;
 }
 
-.cell:hover {
-  transform: translateY(-5px);
-}
-
+/* Active cell: span full width and increase size */
 .cell.active {
-  border: var(--active-border);
+  grid-column: 1 / -2; /* Span all columns in the grid */
+  grid-row: 2 / -2;
+  padding: 2rem;
+  font-size: 1.1rem;
 }
+
 
 /* Widget container inside each cell */
 .widget-container {
