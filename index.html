@@ -2,45 +2,112 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>My Awesome Site</title>
+  <title>Widget Experiments</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Link to your main stylesheet if any -->
+  <!-- Link to our CSS file -->
   <link rel="stylesheet" href="css/style.css">
+  <script>
+    // Global variable to keep track of the currently active cell
+    let activeCellId = null;
+
+    // Activate a given cell by id, deactivating the previous one.
+    function activateCell(cellId) {
+      if (activeCellId === cellId) return; // Already active, do nothing
+
+      // If there is an active cell, run its cleanup function (if defined)
+      if (activeCellId) {
+        const oldCell = document.getElementById(activeCellId);
+        oldCell.classList.remove('active');
+        if (typeof window[activeCellId + '_cleanup'] === 'function') {
+          window[activeCellId + '_cleanup']();
+        }
+      }
+
+      // Activate the new cell
+      activeCellId = cellId;
+      const newCell = document.getElementById(cellId);
+      newCell.classList.add('active');
+      // Run its initialization function (if defined)
+      if (typeof window[cellId + '_init'] === 'function') {
+        window[cellId + '_init']();
+      }
+    }
+
+    // Optional: Auto-activate the first cell on page load
+    window.addEventListener('DOMContentLoaded', () => {
+      activateCell('cell1');
+    });
+  </script>
 </head>
 <body>
   <header>
-    <h1>Charles Rothbaum</h1>
-    <nav>
-      <!-- Navigation links -->
-      <ul>
-        <li><a href="#home">Home</a></li>
-        <li><a href="#visualizer">Visualizer</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </nav>
+    <h1>My Widget Experiments</h1>
   </header>
 
   <main>
-    <section id="home"> 
-      <p>website</p>
-    </section>
+    <div class="cells">
+      <!-- Cell 1 -->
+      <div id="cell1" class="cell" onclick="activateCell('cell1')">
+        <h2>Experiment 1</h2>
+        <div class="widget-container">
+          <!-- Content for widget 1 will be inserted here by its init function -->
+        </div>
+      </div>
 
-    <!-- Embed the visualizer via an iframe -->
-    <section id="visualizer">
-      <iframe src="visualizer.html" width="1280" height="720" style="border: none;">
-        Your browser does not support iframes.
-      </iframe>
-    </section>
+      <!-- Cell 2 -->
+      <div id="cell2" class="cell" onclick="activateCell('cell2')">
+        <h2>Experiment 2</h2>
+        <div class="widget-container">
+          <!-- Content for widget 2 will be inserted here by its init function -->
+        </div>
+      </div>
 
-    <section id="about">
-      <h2>About</h2>
-      <p>Charles Rothbaum</p>
-      <p>Gunnison, CO</p>
-    </section>
+      <!-- More cells can be added here -->
+    </div>
   </main>
 
   <footer>
-    <p>Charles Rothbaum</p>
+    <p>&copy; 2025 My Widget Experiments</p>
   </footer>
+
+  <!-- Example widget scripts -->
+  <script>
+    // Widget for cell1
+    function cell1_init() {
+      const container = document.querySelector('#cell1 .widget-container');
+      container.innerHTML = '<p>Experiment 1 is running!</p>';
+      // For example, start an animation loop and store its ID so it can be stopped later.
+      window.cell1Animation = setInterval(() => {
+        console.log('Widget 1 animation tick');
+      }, 1000);
+    }
+    function cell1_cleanup() {
+      const container = document.querySelector('#cell1 .widget-container');
+      container.innerHTML = '';
+      // Stop the animation loop if it’s running.
+      if (window.cell1Animation) {
+        clearInterval(window.cell1Animation);
+        window.cell1Animation = null;
+      }
+    }
+
+    // Widget for cell2
+    function cell2_init() {
+      const container = document.querySelector('#cell2 .widget-container');
+      container.innerHTML = '<p>Experiment 2 is running!</p>';
+      // For example, start another process (animation, WebGL, etc.)
+      window.cell2Animation = setInterval(() => {
+        console.log('Widget 2 animation tick');
+      }, 1000);
+    }
+    function cell2_cleanup() {
+      const container = document.querySelector('#cell2 .widget-container');
+      container.innerHTML = '';
+      if (window.cell2Animation) {
+        clearInterval(window.cell2Animation);
+        window.cell2Animation = null;
+      }
+    }
+  </script>
 </body>
 </html>
