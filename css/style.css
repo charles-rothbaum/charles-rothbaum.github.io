@@ -26,8 +26,8 @@ html,body {
 }
 
 canvas {
-  width: 640px !important;
-  height: 300px !important;
+  width: 100%;
+  height: 100%;
   border-radius: 8px;
 }
 
@@ -74,7 +74,7 @@ main {
 .cell {
   background-color: #fff;
   border-radius: 8px;
-  padding: 1rem;
+  padding: 0rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: 0.3s ease;
@@ -91,8 +91,17 @@ main {
 
 /* Widget container inside each cell */
 .widget-container {
-  margin-top: 1rem;
-  min-height: 150px;
+  position: relative;
+  width: 100%;
+  /* Define a minimum or explicit height */
+  min-height: 300px; /* or any value that suits your layout */
+}
+/* Ensure the canvas fills its container */
+canvas {
+  width: 100%;
+  height: 100%;
+  display: block; /* removes extra inline spacing */
+  border-radius: 8px;
 }
 
 /* Footer styling */
