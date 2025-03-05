@@ -6,7 +6,8 @@ uniform float u_time;
 uniform vec2 u_resolution;
 uniform float u_frequency;
 uniform float u_amplitude;
-uniform float u_iterations; // This is dynamic but cannot be used directly in a loop condition.
+uniform float u_iterations;
+uniform float u_asymmetry;
 
 const int MAX_ITERATIONS = 20; // Define a fixed upper bound.
 
@@ -31,7 +32,7 @@ void main() {
     for (int i = 0; i < MAX_ITERATIONS; i++) {
         if (i >= iterations) break;
 
-        uv = fract(uv * 1.5) - 0.5;
+        uv = fract(uv * u_asymmetry) - 0.5;
 
         float d = length(uv) * exp(-length(uv0));
 

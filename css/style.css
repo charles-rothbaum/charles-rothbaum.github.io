@@ -48,6 +48,22 @@ main {
   margin: 0 auto;
 }
 
+.slider-row {
+  display: flex !important;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 10px; 
+}
+.slider-row label {
+  width: 120px; /* fixed width for labels */
+  margin-right: 10px;
+  text-align: right;
+  white-space: nowrap;
+}
+.slider-row input[type="range"] {
+  flex: 1;
+}
 
 .cell:nth-child(-n+3) {
   background-color: #554f7f;
