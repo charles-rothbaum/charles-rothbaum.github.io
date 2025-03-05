@@ -11,8 +11,6 @@
     // Global variable to keep track of the currently active cell
     let activeCellId = null;
 
-    // Activate a given cell by id, deactivating the previous one.
-    // The optional parameter updateURL controls whether the URL is updated.
     function activateCell(cellId, updateURL = true) {
       if (activeCellId === cellId) return; // Already active, do nothing
 
@@ -22,6 +20,10 @@
         oldCell.classList.remove('active');
         if (typeof window[activeCellId + '_cleanup'] === 'function') {
           window[activeCellId + '_cleanup']();
+        }
+        if (updateURL) {
+          // Update the hash instead of the pathname
+          location.hash = cellId;
         }
       }
 
@@ -41,19 +43,15 @@
     }
 
     // Listen for the popstate event so that using back/forward activates the correct cell.
-    window.addEventListener('popstate', () => {
-      // Remove the leading "/" from pathname and default to 'cell1'
-      let cellName = window.location.pathname.slice(1) || 'cell1';
-      activateCell(cellName, false); // false so we don't pushState again
+    window.addEventListener('DOMContentLoaded', () => {
+      // Remove the leading "#" and default to 'cell1'
+      let cellName = location.hash.slice(1) || 'cell1';
+      activateCell(cellName, false);
     });
 
-    // On page load, check the URL pathname to activate the corresponding cell.
-    window.addEventListener('DOMContentLoaded', () => {
-      let cellName = window.location.pathname.slice(1);
-      // If the URL does not have a cell name, default to cell1
-      if (!cellName) {
-        cellName = 'cell1';
-      }
+    // Listen for hash changes (instead of popstate)
+    window.addEventListener('hashchange', () => {
+      let cellName = location.hash.slice(1) || 'cell1';
       activateCell(cellName, false);
     });
   </script>
