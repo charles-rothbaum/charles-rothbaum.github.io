@@ -10,10 +10,10 @@
   <script>
     // Global variable to keep track of the currently active cell
     let activeCellId = null;
-
+  
     function activateCell(cellId, updateURL = true) {
       if (activeCellId === cellId) return; // Already active, do nothing
-
+  
       // If there is an active cell, run its cleanup function (if defined)
       if (activeCellId) {
         const oldCell = document.getElementById(activeCellId);
@@ -21,12 +21,8 @@
         if (typeof window[activeCellId + '_cleanup'] === 'function') {
           window[activeCellId + '_cleanup']();
         }
-        if (updateURL) {
-          // Update the hash instead of the pathname
-          location.hash = cellId;
-        }
       }
-
+  
       // Activate the new cell
       activeCellId = cellId;
       const newCell = document.getElementById(cellId);
@@ -35,26 +31,27 @@
       if (typeof window[cellId + '_init'] === 'function') {
         window[cellId + '_init']();
       }
-
-      // Update the URL if requested
+  
+      // Update the URL hash if requested
       if (updateURL) {
-        history.pushState(null, '', '/' + cellId);
+        location.hash = cellId;
       }
     }
-
-    // Listen for the popstate event so that using back/forward activates the correct cell.
+  
+    // On page load, check the URL hash to activate the corresponding cell.
     window.addEventListener('DOMContentLoaded', () => {
       // Remove the leading "#" and default to 'cell1'
       let cellName = location.hash.slice(1) || 'cell1';
       activateCell(cellName, false);
     });
-
-    // Listen for hash changes (instead of popstate)
+  
+    // Listen for hash changes (e.g., when the user uses the back/forward buttons)
     window.addEventListener('hashchange', () => {
       let cellName = location.hash.slice(1) || 'cell1';
       activateCell(cellName, false);
     });
   </script>
+  
 </head>
 
 <body>
