@@ -81,7 +81,7 @@ main {
 /* Grid container for cells */
 .cells {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(2500px, 1fr)); /* Minimum width 250px */
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); /* Minimum width 250px */
   gap: 1.5rem;
   margin: 2rem;
 }
@@ -94,8 +94,8 @@ main {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   cursor: pointer;
   transition: 0.3s ease;
-  min-width: 250px;
-  max-height: 250px;
+  min-width: 25px;
+  max-height: 2500px;
 }
 
 /* Active cell: span full width and increase size */
@@ -104,7 +104,7 @@ main {
   grid-row: 2 / -2;
   padding: 2rem;
   font-size: 1.1rem;
-  min-width: 1500px;
+  min-width: 150px;
 }
 
 
