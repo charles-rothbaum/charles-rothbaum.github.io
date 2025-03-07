@@ -41,6 +41,7 @@ void main() {
 
     float scale = 1.;
     uv.x += .5;
+    
     int recursions = int(u_recursions);
 
     for(int i = 0; i < MAX_RECURSIONS; i++){
@@ -57,10 +58,10 @@ void main() {
 
 
     float d = length(uv - vec2(clamp(uv.x, -1., 1.), 0));
-    d = smoothstep(1./u_resolution.x, 0.00, d/scale);
-    col.rg += uv.xy / 10.;
+    d = smoothstep(0.5/u_resolution.y, 0.09, d/scale);
+
     col -= d;
-    col += palette(length(uv.xy)* 0.14 + 0.9*12. * 0.4);
+    col += palette((length(uv.xy)+3.1415 * scale) * 10. /pow(scale, 0.6));
 
     gl_FragColor = vec4(col, 1.0);
 }
