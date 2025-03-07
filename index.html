@@ -100,11 +100,19 @@
       </div>
 
       <div id="cell2" class="cell" onclick="activateCell('cell2')">
-        <h2>Koch Snowflake Fractals</h2>
+        <h2>Koch Snowflake Fractal</h2>
+        <div class="thumbnail">
+          <img src="thumbnails/cell2.png" alt="Thumbnail for Cell 2">
+        </div>
         <div class="scrollable-container">
           <div class="widget-container">
           </div>
-          <div class="description" id="cell1-description">
+          <div class="slider-row">
+            <label for="recursions-slider">recursions:</label>
+            <input id="recursions-slider" type="range" min="1.0" max="20.0" step="1.0" value="28.0"
+              oninput="updateRecursions(this.value)">
+          </div>
+          <div class="description" id="cell2-description">
             <h4>description:</h4>
             <p>Koch Snowflake Fractals using WebGL shaders, based on the art of code's video:
             </p>
