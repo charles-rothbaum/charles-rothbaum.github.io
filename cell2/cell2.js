@@ -44,7 +44,7 @@ export async function cell2_init() {
 
   // Set initial uniform values
   gl.uniform2f(resolutionUniformLocation, canvas.width, canvas.height);
-  gl.uniform1f(recursionsUniformLocation, 8);
+  gl.uniform1f(recursionsUniformLocation, 4);
 
   window.updateRecursions = (value) => {
     gl.uniform1f(recursionsUniformLocation, parseFloat(value));

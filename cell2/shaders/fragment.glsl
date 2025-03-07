@@ -8,6 +8,15 @@ uniform vec2 u_mouse;
 uniform float u_recursions;
 const int MAX_RECURSIONS = 20;
 
+vec3 palette(float t) {
+    vec3 a = vec3(0.5, 0.5, 0.5);
+    vec3 b = vec3(0.5, 0.5, 0.5);
+    vec3 c = vec3(1.0, 1.0, 1.0);
+    vec3 d = vec3(0.263, 0.416, 0.557);
+
+    return a + b * cos(6.28318 * (c * t + d));
+}
+
 void main() {
     vec2 uv = (gl_FragCoord.xy-.5*u_resolution.xy)/u_resolution.y;
     vec2 mouse = u_mouse / u_resolution.xy;
@@ -37,21 +46,20 @@ void main() {
         if(i >= recursions) break;
         //reset uv coordinates for each line segment:
         uv *= 3.;
-        scale *= 3.;
+        scale *= 4.;
         uv.x -= 1.5;
 
         uv.x = abs(uv.x);
         uv.x -= 0.5; //widen the line, because instead of terminating at x=1, it will be x=1.5
         uv -= n * min(0., dot(uv,n))*2.; //uv coords reflected from pos side of line to neg side.
-
-        col.bg += uv.xy;
     }
 
 
     float d = length(uv - vec2(clamp(uv.x, -1., 1.), 0));
-    d = smoothstep(1./u_resolution.y, 0.00, d/scale);
-    col += d;
-    //col.rg += uv;
+    d = smoothstep(1./u_resolution.x, 0.00, d/scale);
+    col.rg += uv.xy / 10.;
+    col -= d;
+    col += palette(length(uv.xy)* 0.14 + u_time * 0.4);
 
     gl_FragColor = vec4(col, 1.0);
 }
