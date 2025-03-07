@@ -1,28 +1,7 @@
-// Helper function to load shader source code with cache-busting
-async function loadShaderSource(url) {
-  const response = await fetch(url + '?v=' + Date.now());
-  if (!response.ok) {
-    console.error(`Failed to load shader from ${url}`);
-    return null;
-  }
-  return await response.text();
-}
-
-// Helper function to compile a shader
-async function compileShader(gl, source, type) {
-  const shader = gl.createShader(type);
-  gl.shaderSource(shader, source);
-  gl.compileShader(shader);
-  if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS)) {
-    console.error("Shader compilation error", gl.getShaderInfoLog(shader));
-    gl.deleteShader(shader);
-    return null;
-  }
-  return shader;
-}
+import { loadShaderSource, compileShader } from '../js/helpers.js';
 
 // Initialization function for Cell 1
-async function cell1_init() {
+export async function cell1_init() {
   const container = document.querySelector('#cell1 .widget-container');
   container.innerHTML = '<canvas id="cell1_canvas" width="640" height="640"></canvas>';
 
@@ -124,6 +103,7 @@ async function cell1_init() {
   gl.viewport(0, 0, canvas.width, canvas.height);
   gl.clearColor(0.2, 0.4, 0.6, 1.0);
 }
+window.cell1_init = cell1_init;
 
 // Cleanup function for Cell 1
 function cell1_cleanup() {
