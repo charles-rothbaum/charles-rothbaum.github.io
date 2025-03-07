@@ -6,6 +6,7 @@ uniform float u_time;
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_recursions;
+uniform float u_theta;
 const int MAX_RECURSIONS = 20;
 
 vec3 palette(float t) {
@@ -24,7 +25,7 @@ void main() {
     //uv *= 3.;
     vec3 col = vec3(0);
     //line angle:
-    float angle = (2./.3)*3.1415; //mult by pi so that can rotate more than 1RAD piRADS = 180deg.
+    float angle = (u_theta)*3.1415; //mult by pi so that can rotate more than 1RAD piRADS = 180deg.
     //line normal (perpendicular direction):
     vec2 n = vec2(sin(angle), cos(angle)); //will trace out a circle, imagine displacement vector as hands of a clock
     //get distance between any pixel to line described by mouse pos
@@ -59,7 +60,7 @@ void main() {
     d = smoothstep(1./u_resolution.x, 0.00, d/scale);
     col.rg += uv.xy / 10.;
     col -= d;
-    col += palette(length(uv.xy)* 0.14 + u_time * 0.4);
+    col += palette(length(uv.xy)* 0.14 + 0.9*12. * 0.4);
 
     gl_FragColor = vec4(col, 1.0);
 }

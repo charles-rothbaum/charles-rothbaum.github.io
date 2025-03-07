@@ -41,13 +41,21 @@ export async function cell2_init() {
   const resolutionUniformLocation = gl.getUniformLocation(shaderProgram, "u_resolution");
   const mouseUniformLocation = gl.getUniformLocation(shaderProgram, "u_mouse");
   const recursionsUniformLocation = gl.getUniformLocation(shaderProgram, "u_recursions")
+  const thetaUniformLocation = gl.getUniformLocation(shaderProgram, "u_theta");
 
   // Set initial uniform values
   gl.uniform2f(resolutionUniformLocation, canvas.width, canvas.height);
   gl.uniform1f(recursionsUniformLocation, 4);
+  gl.uniform1f(thetaUniformLocation, 2/3)
 
   window.updateRecursions = (value) => {
     gl.uniform1f(recursionsUniformLocation, parseFloat(value));
+    gl.clear(gl.COLOR_BUFFER_BIT);
+    gl.drawArrays(gl.TRIANGLES, 0, 6);
+  };
+
+  window.updateTheta = (value) => {
+    gl.uniform1f(thetaUniformLocation, parseFloat(value));
     gl.clear(gl.COLOR_BUFFER_BIT);
     gl.drawArrays(gl.TRIANGLES, 0, 6);
   };
