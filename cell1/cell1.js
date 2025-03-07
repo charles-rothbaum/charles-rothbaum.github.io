@@ -34,8 +34,8 @@ async function cell1_init() {
   }
 
   // Compile shaders from source files
-  const vertexShaderSource = await loadShaderSource('project1/shaders/vertex.glsl');
-  const fragmentShaderSource = await loadShaderSource('project1/shaders/fragment.glsl');
+  const vertexShaderSource = await loadShaderSource('cell1/shaders/vertex.glsl');
+  const fragmentShaderSource = await loadShaderSource('cell1/shaders/fragment.glsl');
 
   if (!vertexShaderSource || !fragmentShaderSource) {
     console.error("Error loading shaders.");

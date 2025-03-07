@@ -3,7 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>Charles Rothbaum Project Demos</title>
+  <title>Charles Rothbaum</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <!-- Link to our CSS file -->
   <link rel="stylesheet" href="css/style.css">
@@ -54,13 +54,13 @@
 
 <body>
   <header>
-    <h1>Demos</h1>
+    <h1>Charles Rothbaum Shader Projects</h1>
   </header>
   <main>
     <div class="cells">
       <!-- Cell 1 -->
       <div id="cell1" class="cell" onclick="activateCell('cell1')">
-        <h2>Circular Fractal Oscillations</h2>
+        <h2>Circular SDF Oscillations</h2>
           <div class="thumbnail">
             <img src="thumbnails/cell1.png" alt="Thumbnail for Cell 1">
           </div>
@@ -81,21 +81,35 @@
             <input id="iterations-slider" type="range" min="1.0" max="15.0" step="0.01" value="4.0"
               oninput="updateIterations(this.value)">
             <label for="asymmetry-slider">mirror offset:</label>
-            <input id="asymmetry-slider" type="range" min="0" max="15" step="0.01" value="1.5"
+            <input id="asymmetry-slider" type="range" min="0" max="3" step="0.01" value="1.5"
               oninput="updateAsymmetry(this.value)">
           </div>
-          <h5>description:</h5>
           <div class="description" id="cell1-description">
-            <p>Recursive transformations applied to Signed Distance
-              Fields (SDFs) using WebGL shaders.</p>
+            <h4>description:</h4>
+            <p>Recursive transformations applied to a circular Signed Distance
+              Field (SDF) using WebGL shaders. Based on kishimisu's video:
+            </p>
+            <p>https://www.youtube.com/watch?v=f4s1h2YETNY&t=1125s</p>
+            <h4>Adjustable parameters:</h4>
+            <p>SDF Frequency: The frequency of a wave function which is applied to the signed distance function </p>
+            <p>SDF Amplitude: The amplitude of the same wave function </p>
+            <p>Iterations: The number of times the entire image is re-rendered to each quadrant of the image</p>
+            <p>Mirror offset: Changes the part of the image quadrant that is mirrored</p>
           </div>
         </div>
       </div>
 
       <div id="cell2" class="cell" onclick="activateCell('cell2')">
-        <h2>Project 2</h2>
-        <div class="widget-container">
-          <!-- Content for widget 2 will be inserted here by its init function -->
+        <h2>Koch Snowflake Fractals</h2>
+        <div class="scrollable-container">
+          <div class="widget-container">
+          </div>
+          <div class="description" id="cell1-description">
+            <h4>description:</h4>
+            <p>Koch Snowflake Fractals using WebGL shaders, based on the art of code's video:
+            </p>
+            <p>https://www.youtube.com/watch?v=il_Qg9AqQkE&list=PLGmrMu-IwbgsVjE7SAtFaWyhZXyBjJNnO</p>
+          </div>
         </div>
       </div>
 
@@ -111,7 +125,8 @@
     <p>Charles Rothbaum</p>
   </footer>
 
-  <script src="js/cell1.js"></script>
+  <script src="cell1/cell1.js"></script>
+  <script src="cell2/cell2.js"></script>
 </body>
 
 </html>
