@@ -109,10 +109,10 @@
           </div>
           <div class="slider-row">
             <label for="recursions-slider">recursions:</label>
-            <input id="recursions-slider" type="range" min="1.0" max="6.0" step="1.0" value="4.0"
+            <input id="recursions-slider" type="range" min="1.0" max="7.0" step="1.0" value="4.0"
               oninput="updateRecursions(this.value)">
             <label for="theta-slider">theta:</label>
-            <input id="theta-slider" type="range" min="0.5" max="1.0" step="0.01" value="0.6666"
+            <input id="theta-slider" type="range" min="0.5" max="1.0" step="0.001" value="0.6666"
               oninput="updateTheta(this.value)">
           </div>
           <div class="description" id="cell2-description">
@@ -125,10 +125,33 @@
       </div>
 
       <div id="cell3" class="cell" onclick="activateCell('cell3')">
-        <h2>Project 3</h2>
-        <div class="widget-container">
+        <h2>Freaky</h2>
+        <div class="thumbnail">
+          <img src="thumbnails/cell3.png" alt="Thumbnail for Cell 3">
         </div>
-      </div>
+        <div class="scrollable-container">
+          <div class="widget-container">
+          </div>
+          <div class="slider-row">
+            <label for="recursions-slider">recursions:</label>
+            <input id="recursions-slider" type="range" min="1.0" max="7.0" step="1.0" value="4.0"
+              oninput="updateRecursions(this.value)">
+            <label for="theta-slider">theta:</label>
+            <input id="theta-slider" type="range" min="0.5" max="1.0" step="0.001" value="0.78"
+              oninput="updateTheta(this.value)">
+          </div>
+          <div class="slider-row">
+            <label for="speed-slider">animation speed:</label>
+            <input id="speed-slider" type="range" min="0.0" max="3.0" step="0.1" value="0.2"
+              oninput="updateSpeed(this.value)">
+          </div>
+          <div class="description" id="cell3-description">
+            <h4>description:</h4>
+            <p>experimenting with symmetry folding.
+            </p>
+            <p></p>
+          </div>
+        </div>
     </div>
   </main>
 
@@ -138,6 +161,7 @@
 
   <script type="module" src="cell1/cell1.js"></script>
   <script type="module" src="cell2/cell2.js"></script>
+  <script type="module" src="cell3/cell3.js"></script>
 </body>
 
 </html>

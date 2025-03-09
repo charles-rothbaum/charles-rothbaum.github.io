@@ -18,6 +18,10 @@ vec3 palette(float t) {
     return a + b * cos(6.28318 * (c * t + d));
 }
 
+vec2 N(float angle){
+    return vec2(sin(angle), cos(angle));
+}
+
 void main() {
     vec2 uv = (gl_FragCoord.xy-.5*u_resolution.xy)/u_resolution.y;
     vec2 mouse = u_mouse / u_resolution.xy;
