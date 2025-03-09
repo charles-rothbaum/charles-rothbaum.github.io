@@ -5,16 +5,13 @@
   <meta charset="UTF-8">
   <title>Charles Rothbaum</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <!-- Link to our CSS file -->
   <link rel="stylesheet" href="css/style.css">
   <script>
-    // Global variable to keep track of the currently active cell
     let activeCellId = null;
 
     function activateCell(cellId, updateURL = true) {
-      if (activeCellId === cellId) return; // Already active, do nothing
+      if (activeCellId === cellId) return; 
 
-      // If there is an active cell, run its cleanup function (if defined)
       if (activeCellId) {
         const oldCell = document.getElementById(activeCellId);
         oldCell.classList.remove('active');
@@ -23,28 +20,23 @@
         }
       }
 
-      // Activate the new cell
       activeCellId = cellId;
       const newCell = document.getElementById(cellId);
       newCell.classList.add('active');
-      // Run its initialization function (if defined)
       if (typeof window[cellId + '_init'] === 'function') {
         window[cellId + '_init']();
       }
 
-      // Update the URL hash if requested
       if (updateURL) {
         location.hash = cellId;
       }
     }
 
-    // On page load, check the URL hash to activate the corresponding cell.
     window.addEventListener('DOMContentLoaded', () => {
       let cellName = location.hash.slice(1) || 'cell1';
       activateCell(cellName, false);
     });
 
-    // Listen for hash changes (e.g., when the user uses the back/forward buttons)
     window.addEventListener('hashchange', () => {
       let cellName = location.hash.slice(1) || 'cell1';
       activateCell(cellName, false);
@@ -53,10 +45,17 @@
 </head>
 
 <body>
-  <header>
-    <h1>Charles Rothbaum Shader Projects</h1>
-  </header>
   <main>
+    <div class="cells">
+      <div class="about-cell">
+        <h2>Charles Rothbaum Shader Projects</h2>
+        <div>
+          <p>
+            hello hi okay
+          </p>
+        </div>
+      </div>
+    </div>
     <div class="cells">
       <!-- Cell 1 -->
       <div id="cell1" class="cell" onclick="activateCell('cell1')">
@@ -66,7 +65,6 @@
           </div>
         <div class="scrollable-container">
           <div class="widget-container">
-            <!-- Content for widget 1 will be inserted here by its init function -->
           </div>
           <div class="slider-row">
             <label for="frequency-slider">SDF frequency:</label>

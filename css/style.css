@@ -68,7 +68,7 @@ main {
   background-color: #503767;
 }
 .cell:nth-child(n+10):nth-child(-n+12) {
-  background-color: #312a57;;
+  background-color: #312a57;
 }
 
 .cells {
@@ -98,7 +98,6 @@ main {
   max-height: 860px;
 }
 
-
 .thumbnail img {
   width: 90%;
   height: 90%;
@@ -106,6 +105,20 @@ main {
   border-radius: 28px;
   padding: 1rem;
 }
+
+.about-cell {
+  grid-column: 1 / -1;
+  order: -1;
+  background-color: #312a57;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: 0.3s ease;
+  min-width: 250;
+  max-height: 800px;
+}
+
 
 .cell.active .thumbnail {
   display: none;
