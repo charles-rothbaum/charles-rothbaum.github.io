@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>Turing Machine Editor Widget</title>
+  <style>
+    /* Widget-specific styling */
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      color: #f4eaea;
+    }
+
+    #editor-app {
+      max-width: 900px;
+      margin: auto;
+      border-radius: 8px;
+    }
+
+    #tape-controls{
+      display: flex;
+      flex-direction: row;
+    }
+
+    /* Tape Container is the fixed window */
+    #tape-container {
+      width: 600px;
+      height: 48px;
+      display: flex !important;
+      flex-direction: row;
+      align-items: center;
+      overflow: hidden;
+      margin: 0 10px;
+      /*padding: 3px;*/
+      border: 2px solid #000;
+      border-radius: 8px;
+    }
+
+    /* Tape Wrapper is the element that moves */
+    #tape-wrapper {
+      display: flex;
+      flex-direction: row;
+      /* Use flex so cells are inline */
+      white-space: nowrap;
+      transition: transform 0.5s ease;
+      /* Optional: for smooth transitions */
+    }
+
+    .tape-cell {
+      flex: 0 0 auto;
+      /* Prevents the cell from shrinking */
+      width: 50px;
+      height: 50px;
+      border: 1px solid #000;
+      text-align: center;
+      vertical-align: middle;
+      line-height: 50px;
+      box-sizing: border-box;
+    }
+
+    .tape-cell input {
+      width: 90%;
+      height: 70%;
+      text-align: center;
+      border: none;
+      outline: none;
+      font-size: 16px;
+    }
+
+    .head {
+      background-color: #ffd000;
+    }
+
+    #controls-window,
+    #rules-window {
+      display: flex;
+      flex-direction: column;
+      margin-bottom: 20px;
+      border: 1px solid #aaa;
+      border-radius: 8px;
+      padding: 10px;
+    }
+
+    #rules-editor div {
+      margin-bottom: 10px;
+      padding: 5px;
+      border: 1px solid #ccc;
+    }
+
+    #rules-editor input {
+      margin-right: 5px;
+      margin-bottom: 5px;
+    }
+
+    button {
+      margin: 2px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="editor-app">
+    <!-- Tape Window -->
+    <h3>Tape</h3>
+    <div id="tape-controls">
+      <button id="scroll-left">Scroll Left</button>
+      <!-- The tape container remains fixed -->
+      <div id="tape-container">
+        <!-- The tape wrapper inside will move -->
+        <div id="tape-wrapper"></div>
+      </div>
+      <button id="scroll-right">Scroll Right</button>
+    </div>
+    <!-- Controls Window -->
+    <div id="controls-window">
+      <h3>Controls</h3>
+      <button id="run">Run</button>
+      <button id="step">Step</button>
+      <button id="stop">Stop</button>
+      <button id="reset">Reset</button>
+      <br><br>
+      <label for="speed-slider">Simulation Speed:</label>
+      <input type="range" id="speed-slider" min="0" max="1000" value="500">
+      <br><br>
+      <div id="messages">
+        <div id="error-message" style="color:red"></div>
+        <div id="success-message" style="color:green"></div>
+      </div>
+    </div>
+    <!-- Rules Window -->
+    <div id="rules-window">
+      <h3>Rules</h3>
+      <div id="rules-editor"></div>
+      <button id="add-rule">Add Rule</button>
+    </div>
+  </div>
+  <script type="module" src="widget.js"></script>
+  <script type="module">
+    import { animate, scroll } from "https://cdn.jsdelivr.net/npm/motion@latest/+esm"
+  </script>
+</body>
+
+</html>
