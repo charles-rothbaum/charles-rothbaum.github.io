@@ -19,14 +19,15 @@
       border-radius: 8px;
     }
 
-    #tape-controls{
+    #tape-controls {
       display: flex;
       flex-direction: row;
+      padding: 10px;
     }
 
     /* Tape Container is the fixed window */
     #tape-container {
-      width: 600px;
+      width: 700px;
       height: 48px;
       display: flex !important;
       flex-direction: row;
@@ -73,29 +74,61 @@
       background-color: #ffd000;
     }
 
-    #controls-window,
+    #controls-window{
+      display: flex;
+      flex-direction: row;
+      width: 40%;
+      align-items: last baseline;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      padding: 10px;
+      background-color: rgb(69, 63, 108);
+    }
     #rules-window {
       display: flex;
       flex-direction: column;
-      margin-bottom: 20px;
-      border: 1px solid #aaa;
+      width: 70%;
+      margin-bottom: 30px;
       border-radius: 8px;
+      padding: 20px;
+      background-color: rgb(69, 63, 108);
+    }
+
+    #controls-buttons {
+      display: flex;
+      flex-direction: column;
       padding: 10px;
+      width: 100%;
+    }
+
+    #sliders{
+      display: flex;
+      align-items: last baseline;
+      width: 100%;
+      overflow: auto;
     }
 
     #rules-editor div {
+      display: flex;
+      flex-direction: column;
+      width: 90%;
       margin-bottom: 10px;
       padding: 5px;
-      border: 1px solid #ccc;
+      background-color: rgb(92, 87, 151);
+      border-radius: 8px;
     }
 
     #rules-editor input {
+      display: flex;
       margin-right: 5px;
       margin-bottom: 5px;
+      border-radius: 8px;
     }
-
     button {
-      margin: 2px;
+      display: flex;
+      margin: 7px;
+      color: rgb(0, 0, 0);
+      border-radius: 8px;
     }
   </style>
 </head>
@@ -114,25 +147,32 @@
       <button id="scroll-right">Scroll Right</button>
     </div>
     <!-- Controls Window -->
+    <h3>Controls</h3>
     <div id="controls-window">
-      <h3>Controls</h3>
-      <button id="run">Run</button>
-      <button id="step">Step</button>
-      <button id="stop">Stop</button>
-      <button id="reset">Reset</button>
-      <br><br>
-      <label for="speed-slider">Simulation Speed:</label>
-      <input type="range" id="speed-slider" min="0" max="1000" value="500">
-      <br><br>
+      <div id="controls-buttons">
+        <button id="run">Run</button>
+        <button id="step">Step</button>
+        <button id="stop">Stop</button>
+        <button id="reset">Reset</button>
+        <div id="sliders">
+          <br><br>
+          <label for="speed-slider">Simulation Speed:</label>
+          <input type="range" id="speed-slider" min="0" max="1000" value="500">
+          <br><br>
+        </div>
+      </div>
+      
       <div id="messages">
         <div id="error-message" style="color:red"></div>
         <div id="success-message" style="color:green"></div>
       </div>
     </div>
     <!-- Rules Window -->
+    <h3>Rules</h3>
     <div id="rules-window">
-      <h3>Rules</h3>
+      <div id="rules-column">
       <div id="rules-editor"></div>
+      </div>
       <button id="add-rule">Add Rule</button>
     </div>
   </div>

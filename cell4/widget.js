@@ -36,20 +36,12 @@ function initOffset() {
 }
 
 function initRules() {
-  rules.push({ name: "v", readSymbol: "", writeSymbol: "1", nextState: "1", moveDirection: "R" });
-  rules.push({ name: "u", readSymbol: "0", writeSymbol: "1", nextState: "1", moveDirection: "R" });
-  rules.push({ name: "t", readSymbol: "1", writeSymbol: "0", nextState: "0", moveDirection: "L" });
-  rules.push({ name: "s", readSymbol: "", writeSymbol: "", nextState: "h", moveDirection: "L" });
-  rules.push({ name: "r", readSymbol: "0", writeSymbol: "0", nextState: "1", moveDirection: "R" });
-  rules.push({ name: "q", readSymbol: "1", writeSymbol: "1", nextState: "1", moveDirection: "R" });
-
-}
-
-function incrementHead(direction) {
-  headPosition = Math.max(headPosition - 1, 0);
-}
-function decrementHead(direction) {
-  headPosition = Math.min(headPosition + 1, tape.length - 1);
+  rules.push({ name: "", readSymbol: "", writeSymbol: "1", nextState: "1", moveDirection: "R" });
+  rules.push({ name: "0", readSymbol: "0", writeSymbol: "1", nextState: "1", moveDirection: "R" });
+  rules.push({ name: "0", readSymbol: "1", writeSymbol: "0", nextState: "0", moveDirection: "L" });
+  rules.push({ name: "1", readSymbol: "", writeSymbol: "", nextState: "h", moveDirection: "L" });
+  rules.push({ name: "1", readSymbol: "0", writeSymbol: "0", nextState: "1", moveDirection: "R" });
+  rules.push({ name: "1", readSymbol: "1", writeSymbol: "1", nextState: "1", moveDirection: "R" });
 }
 
 function calculateOffset() {
@@ -59,7 +51,6 @@ function calculateOffset() {
   // Center the head cell: container center minus the center of the head cell.
   return containerWidth / 2 - (headPosition * cellWidth + cellWidth / 2);
 }
-
 
 function updateTapeAnimation() {
   const newOffset = calculateOffset();
@@ -72,29 +63,42 @@ function updateTapeAnimation() {
   renderTape();
 }
 
-// Simulation: "Run" button handler (simple demo logic)
-function handleRun() {
-  if (running) return;
-  running = true;
+let runTimeoutId = null;
 
-  while (running) {
-    let currentSymbol = tape[headPosition];
-    let currentRule = rules.find(rule => rule.readSymbol === currentSymbol);
-    if (!currentRule) {
-      handleStop();
-      errorMessageEl.innerText = "Halted: No matching rule found";
-      return;
-    }
-    // Write symbol and move head
-    tape[headPosition] = currentRule.writeSymbol;
-    if (currentRule.moveDirection === 'R') {
-      updateTapeAnimation(1);
-      headPosition = Math.max(headPosition - 1, 0);
-    } else if (currentRule.moveDirection === 'L') {
-      updateTapeAnimation(0);
-      headPosition = Math.min(headPosition + 1, tape.length - 1);
-    }
-    renderTape();
+function handleRun() {
+  running = true;
+  if (!running) return; // stop if simulation is no longer running
+
+  let currentSymbol = tape[headPosition];
+  let currentRule = rules.find(rule => rule.readSymbol === currentSymbol);
+  if (!currentRule) {
+    handleStop();
+    errorMessageEl.innerText = "Halted: No matching rule found";
+    return;
+  }
+
+  // Write symbol and update tape at the current head
+  tape[headPosition] = currentRule.writeSymbol;
+
+  // Correct direction logic: increment for 'R', decrement for 'L'
+  if (currentRule.moveDirection === 'R') {
+    headPosition = Math.min(headPosition + 1, tape.length - 1);
+  } else if (currentRule.moveDirection === 'L') {
+    headPosition = Math.max(headPosition - 1, 0);
+  }
+
+  updateTapeAnimation(); // update animation after headPosition change
+  renderTape();
+
+  // Schedule the next step only if running
+  runTimeoutId = setTimeout(handleRun, simulationSpeed);
+}
+
+function handleStop() {
+  running = false;
+  if (runTimeoutId) {
+    clearTimeout(runTimeoutId);
+    runTimeoutId = null;
   }
 }
 
@@ -103,20 +107,13 @@ function handleStep() {
 
 }
 
-// Stop simulation
-function handleStop() {
-  running = false;
-  if (simulationInterval) {
-    clearInterval(simulationInterval);
-    simulationInterval = null;
-  }
-}
 
 // Reset simulation state
 function handleReset() {
   handleStop();
   tape = new Array(MAX_TAPE_LENGTH).fill("");
   headPosition = Math.floor(MAX_TAPE_LENGTH / 2);
+  updateTapeAnimation();
   renderTape();
 }
 
@@ -154,13 +151,26 @@ function renderRules() {
     const fields = ['name', 'readSymbol', 'writeSymbol', 'nextState', 'moveDirection'];
     fields.forEach(field => {
       const input = document.createElement('input');
+      const label = document.createElement('label');
+      
+      // Optionally give the input an id
+      const inputId = `rule-${field}-${Math.random().toString(36).substr(2, 9)}`;
+      input.id = inputId;
+      label.htmlFor = inputId;
+      
+      // Set the label text
+      label.innerText = field + ": ";
+      
       input.placeholder = field;
       input.value = rule[field] || "";
       input.addEventListener('input', (e) => {
         rule[field] = e.target.value;
       });
+      
+      ruleDiv.appendChild(label);
       ruleDiv.appendChild(input);
     });
+    
     // Delete button for each rule
     const delBtn = document.createElement('button');
     delBtn.innerText = "Delete Rule";
