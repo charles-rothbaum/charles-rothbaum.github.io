@@ -167,7 +167,7 @@
       <div id="cell4" class="cell" onclick="activateCell('cell4')">
         <h2>Turing Machine Visualization</h2>
         <div class="thumbnail">
-          <img src="thumbnails/cell4.png" alt="Thumbnail for Cell 3">
+          <img src="thumbnails/cell4.png" alt="Thumbnail for Cell 4">
         </div>
         <div class="scrollable-container">
           <!-- Embed the widget via an iframe -->
@@ -179,7 +179,23 @@
         </div>
       </div>
 
-
+      <div id="cell5" class="cell" onclick="activateCell('cell5')">
+        <h2>Game of Life (OpenGL)</h2>
+        <div class="thumbnail">
+          <img src="thumbnails/cell5.png" alt="Thumbnail for Cell 5">
+        </div>
+        <div class="scrollable-container">
+          <div class="widget-container">
+          </div>
+          <button id="start-random">Start</button>
+          <div class="description" id="cell5-description">
+            <h4>Description:</h4>
+            <p>Conway's Game of Life WebGL implementation based on The Art of Code's video: </p>
+            <p>https://www.youtube.com/watch?v=xh61Ol2X4GA&list=PLGmrMu-IwbgsVjE7SAtFaWyhZXyBjJNnO&index=24
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   </main>
 
@@ -191,6 +207,7 @@
   <script type="module" src="cell2/cell2.js"></script>
   <script type="module" src="cell3/cell3.js"></script>
   <script type="module" src="cell4/widget.js"></script>
+  <script type="module" src="cell5/cell5.js"></script>
 </body>
 
 </html>

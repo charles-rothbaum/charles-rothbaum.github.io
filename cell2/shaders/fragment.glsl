@@ -65,7 +65,7 @@ void main() {
     d = smoothstep(0.5/u_resolution.y, 0.09, d/scale);
 
     col -= d;
-    col += palette((length(uv.xy)+3.1415 * scale) * 10. /pow(scale, 0.6));
+    col += palette(((length(uv.xy))+3.1415 * scale) * 10. /pow(scale, 0.6)+ u_time/5.);
 
     gl_FragColor = vec4(col, 1.0);
 }

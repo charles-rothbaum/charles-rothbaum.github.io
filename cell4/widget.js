@@ -11,7 +11,7 @@ let running = false;
 let simulationInterval = simulationSpeed / 1000;
 
 // DOM element references
-const tapeContainer = document.getElementById('tape-container'); // should be your visible area with overflow hidden
+const tapeContainer = document.getElementById('tape-container');
 const tapeWrapper = document.getElementById('tape-wrapper');
 const scrollLeftButton = document.getElementById('scroll-left');
 const scrollRightButton = document.getElementById('scroll-right');
